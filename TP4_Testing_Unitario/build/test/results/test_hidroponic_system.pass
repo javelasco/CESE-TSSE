@@ -1,0 +1,42 @@
+---
+:source:
+  :path: test
+  :file: test_hidroponic_system.c
+:successes:
+- :test: test_inicializar_sensor_comparar_retorno_puntero
+  :line: 15
+  :message: ''
+  :unity_test_time: 0
+- :test: test_inicializar_sensor
+  :line: 15
+  :message: ''
+  :unity_test_time: 0
+- :test: test_inicializar_sensor_gpio_errado
+  :line: 25
+  :message: ''
+  :unity_test_time: 0
+- :test: test_imprimir_nombre_del_sensor
+  :line: 30
+  :message: ''
+  :unity_test_time: 0
+- :test: test_read_timeout
+  :line: 36
+  :message: ''
+  :unity_test_time: 0
+- :test: test_error_handler_timeout_humidity
+  :line: 42
+  :message: ''
+  :unity_test_time: 0
+- :test: test_error_handler_timeout_temperature
+  :line: 49
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 7
+  :passed: 7
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.32423299993388355
