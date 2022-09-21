@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdint.h>
+#include "DHT_generic_port.h"
 
 void hal_set_gpio_mode(uint16_t gpio, uint8_t gpio_mode) {}
 void hal_set_gpio_level(uint16_t gpio, uint8_t level) {}

@@ -7,18 +7,19 @@
 #define LEDS_ALL_OFF        0
 #define LEDS_ALL_ON         0xFFFF
 #define LED_TO_MASK(led)    (FIRST_BIT_ON << (led-LEDS_OFFSET))
+#define LIMIT(led)          (led >= LSB_LED && led <= MSB_LED)
 
 static uint16_t* puerto;
 static registro_errores_t notificarError;
 
 void LedsCreate(uint16_t * address, registro_errores_t errores) {
     puerto = address;
-    *puerto = LEDS_ALL_OFF;
+    LedsAllTurnOff();
     notificarError = errores;
 }
 
 void LedsSingleTurnOn(uint8_t led) {
-    if(led >= LSB_LED && led <= MSB_LED) {
+    if(LIMIT(led)) {
         *puerto |= LED_TO_MASK(led);
     } else {
         notificarError(ALERTA, __FUNCTION__, __LINE__, "El numero de Led ingresado es invalido.");
@@ -26,7 +27,7 @@ void LedsSingleTurnOn(uint8_t led) {
 }
 
 void LedsSingleTurnOff(uint8_t led) {
-    if(led >= LSB_LED && led <= MSB_LED) {
+    if(LIMIT(led)) {
         *puerto &= ~(LED_TO_MASK(led));
     } else {
         notificarError(ALERTA, __FUNCTION__, __LINE__, "El numero de Led ingresado es invalido.");
@@ -42,13 +43,8 @@ void LedsAllTurnOff(void) {
 }
 
 bool LedsStateRead(uint8_t led) {
-    if(led >= LSB_LED && led <= MSB_LED) {
-        uint16_t aux = 0;
-        aux |= LED_TO_MASK(led);
-        if((*puerto & aux) == aux)
-            return true;
-        else
-            return false;
+    if(LIMIT(led)) {
+        return ((*puerto) & LED_TO_MASK(led)) != 0;
     } else {
         notificarError(ALERTA, __FUNCTION__, __LINE__, "El numero de Led ingresado es invalido.");
     }
